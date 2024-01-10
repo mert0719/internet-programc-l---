@@ -1,0 +1,44 @@
+﻿@using portal.ViewModel
+@model List<CevapModel>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="card">
+            <h5 class="card-header">Cevap Tablosu</h5>
+            <div class="table-responsive text-nowrap">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Cevap</th>
+                            <th>Sorusu</th>
+                            <th>İşlemler</th>
+
+                        </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0">
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Cevap</td>
+                                <td>@item.Soru</td>
+                                <td class="d-flex justify-content-end">
+                                    <a href="/Cevaplar/Sil/@item.Id" class="btn btn-danger m-1">Sil</a>
+                                    <a href="/Cevaplar/Duzenle/@item.Id" class="btn btn-warning m-1">Düzenle</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <a class="btn btn-primary mt-4" href="/Cevaplar/Ekle/">Yeni ekle</a>
+    </div>
+</div>
+
+
+
+

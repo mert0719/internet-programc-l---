@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewData["Title"] = "YeniEkle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <form method="post">
+            <div class="form-group mt-3 mb-3">
+                <label>Ders Seçin</label>
+                <select name="DersId" class="form-control dersler" data-live-search="true">
+                   
+                </select>
+            </div>
+
+            <button class="btn btn-primary kayit">Kaydet</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function(){
+        $.ajax({
+            type: 'GET',
+            url: '/Dersler/DersListele/',
+            success: function (res) {
+                console.log(res);
+                let selectElement = $('select[name="DersId"]');
+                for (let i = 0; i < res.length; i++) {
+                    console.log(res[i]);
+                    let dersAdi = res[i].dersAdi;
+                    let id = res[i].id;
+                    let optionElement = $('<option></option>').attr('value', id).text(dersAdi);
+                    selectElement.append(optionElement);
+                }
+              
+            }
+        });
+
+
+        $(".kayit").click(function(e){
+            e.preventDefault();
+            var dataForm = {
+                DersId: $(".dersler").val()
+            }
+            $.ajax({
+                type:'Post',
+                url:'/Dersler/YeniEkle/',
+                data: dataForm,
+                success:function(res){
+                    alert("Yeni dersiniz eklendi");
+                    window.location.href = "/Dersler/Derslerim"
+                }
+            })
+        })
+    })
+</script>

@@ -1,0 +1,47 @@
+﻿@using portal.Models
+@model Cevaplar
+@{
+    ViewData["Title"] = "Ekle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <form method="post">
+            <div class="form-group mt-3 mb-3">
+                <label>Cevap</label>
+                <input type="text" class="form-control" asp-for="Cevap" />
+                <label>Soru</label>
+                <select class="form-control sorular_" name="SorularId" asp-for="SorularId">
+
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Kaydet</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function(){
+        let selectElement = $(".sorular_").find(":selected").val();
+        $.ajax({
+            type:'Get',
+            url: '/Cevaplar/SorularıGetir/',
+            success:function(res){
+                console.log(res);                
+                let selectElement = $('select[name="SorularId"]');
+                for (let i = 0; i < res.length; i++) {
+                    console.log(res[i]);
+                    let id = res[i].id;
+                    let soru_ = res[i].soru;
+                    let optionElement = $('<option></option>').attr('value', id).text(soru_);
+                    selectElement.append(optionElement);
+
+                }
+              
+            }
+
+        })
+    })
+</script>

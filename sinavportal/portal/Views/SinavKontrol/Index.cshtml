@@ -1,0 +1,42 @@
+﻿@using portal.ViewModel
+@model List<OgrenciCevapGrupModel>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="card">
+            <h5 class="card-header">Öğrenci Cevapları Kontrol Tablosu</h5>
+            <div class="table-responsive text-nowrap">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Adı</th>
+                            <th>Soyadı</th>
+                            
+                            <th>İşlemler</th>
+
+                        </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0">
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Adi</td>
+                                <td>@item.Soyadi</td>
+                                <td>
+                                    <a href="/SinavKontrol/CevapDetay/@item.UserId" class="btn btn-primary">Cevaplar</a>
+                                </td>                                
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+       
+    </div>
+</div>
+
+

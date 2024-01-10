@@ -1,0 +1,97 @@
+﻿@using portal.ViewModel
+@model List<OgrenciSoruCevapModel>
+@{
+    ViewData["Title"] = "CevapDetay";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="card">
+            <h5 class="card-header">Öğrenci Cevapları Kontrol Tablosu</h5>
+            <div class="table-responsive text-nowrap">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Soru</th>
+                            <th>Cevap</th>
+                            <th>Soru Puanı</th>
+                            <th>Cevap Puanı</th>
+                            <th>İşlemler</th>
+
+                        </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0">
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Soru</td>
+                                <td>@item.Cevap</td>
+                                <td>@item.SoruPuan</td>
+                                <td>
+                                    @if(item.CevapPuani != null)
+                                    {
+                                        @item.CevapPuani
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-danger">Henüz puan verilmedi</span>
+                                    }
+                                </td>
+                                <td class="d-flex justify-content-end">
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#puanverModel_@item.Id" class="btn btn-warning m-1">Puan ver</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+    
+@foreach (var item in Model)
+{
+    <div class="modal fade" id="puanverModel_@item.Id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Puan verme ekranı</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="text" class="form-control" id="CevapPuani_@item.Id" name="CevapPuani" placeholder="Puan">
+                </div>
+                <div class="modal-footer">
+                    <a data-id="@item.Id" href="#" class="btn btn-primary kayit">Kaydet</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<script>
+    $(".kayit").click(function(e){
+        e.preventDefault();
+        var id = $(this).attr("data-id");
+        var puan = $("#CevapPuani_"+ id).val();
+
+        $.ajax({
+            type:'Post',
+            url: '/SinavKontrol/PuanVer/',
+            data: {
+                id : id,
+                CevapPuani: puan
+            },
+            success:function(res){
+                alert("Puan verildi");
+                setTimeout(function(){
+                    window.location.reload();
+                },500)
+            }
+        })
+    })
+</script>

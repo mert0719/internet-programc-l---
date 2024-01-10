@@ -1,0 +1,21 @@
+﻿@using portal.Models
+@model OgrenciSoruCevap
+@{
+    ViewData["Title"] = "CevapVer";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <form method="post">
+            <div class="form-group mt-3 mb-3">
+                <label>Cevap</label>
+                <input type="text" class="form-control" asp-for="Cevap" />              
+                <input type="hidden" value="@ViewBag.soru" class="form-control" asp-for="SoruId" />
+            </div>            
+
+            <button type="submit" class="btn btn-primary">Kaydet</button>
+        </form>
+    </div>
+</div>
+

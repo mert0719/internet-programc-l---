@@ -1,0 +1,22 @@
+﻿@using portal.Models
+@model Cevaplar
+@{
+    ViewData["Title"] = "Duzenle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <form method="post">
+            <div class="form-group mt-3 mb-3">
+                <label>Cevap</label>
+                <input type="text" class="form-control" value="@Model.Cevap" asp-for="Cevap" />
+                
+                <input type="hidden" value="@Model.Id" asp-for="Id" />
+            </div>
+
+            <button type="submit" class="btn btn-primary">Kaydet</button>
+        </form>
+    </div>
+</div>
+

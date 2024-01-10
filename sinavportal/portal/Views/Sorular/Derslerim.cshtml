@@ -1,0 +1,48 @@
+﻿@*@using portal.ViewModel
+@model List<OgrenciDersleriModel>
+@{
+    ViewData["Title"] = "Derslerim";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="card">
+            <h5 class="card-header">Derslerim</h5>
+            <div class="table-responsive text-nowrap">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Ders Adı</th>
+                            <th>Ödev Konusu</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0">
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.DersAdi</td>
+                                <td>
+                                    @if(item.Odev != null)
+                                    {
+                                        @item.Odev
+                                    }
+                                    else
+                                    {
+                                        <div class="">Henüz ödev verilmedi</div>
+                                    }
+                                </td>
+                                <td class="d-flex justify-content-end">
+                                    <a href="/Dersler/DerslerimSil/@item.Id" class="btn btn-danger m-1">Sil</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <a class="btn btn-primary mt-4" href="/Dersler/YeniEkle/">Yeni ekle</a>
+    </div>
+</div>
+
+*@
